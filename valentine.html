@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            overflow: hidden;
+        }
+        h1 {
+            margin-top: 50px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .yes-btn, .no-btn {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .yes-btn {
+            background-color: red;
+            color: white;
+        }
+        .no-btn {
+            background-color: gray;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        .hearts, .boom-emoji {
+            font-size: 50px;
+            position: absolute;
+            animation: float 3s linear infinite;
+        }
+        .emoji {
+            font-size: 100px;
+            margin-top: 20px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="question">Will You Be My Valentine? ❤️</h1>
+    <div class="buttons">
+        <button class="yes-btn" onclick="emojiBlast()">Yes</button>
+        <button class="no-btn" onclick="changeQuestion()">No</button>
+    </div>
+    <script>
+        let noClickCount = 0;
+        function emojiBlast() {
+            for (let i = 0; i < 100; i++) {
+                let boom = document.createElement("div");
+                boom.classList.add("boom-emoji");
+                boom.innerHTML = ["❤️", "🎉", "💖", "💘", "💕"][Math.floor(Math.random() * 5)];
+                boom.style.left = Math.random() * window.innerWidth + "px";
+                boom.style.top = Math.random() * window.innerHeight + "px";
+                boom.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                document.body.appendChild(boom);
+            }
+            setTimeout(() => {
+                document.body.innerHTML = "<h1>Be ready on 14th Feb, I'll pick you up on video call! 💕</h1><div class='emoji'>😄💋</div><div class='emoji'>💐</div>";
+            }, 3000);
+        }
+        function changeQuestion() {
+            let question = document.getElementById("question");
+            let yesBtn = document.querySelector(".yes-btn");
+            noClickCount++;
+            
+            if (noClickCount === 1) {
+                question.innerText = "Are you sure you don't want to be my Valentine?";
+            } else if (noClickCount === 2) {
+                question.innerText = "Think it again, I'm giving you one more chance!";
+            } else if (noClickCount === 3) {
+                question.innerText = "You again pressed No, I'm mad at you now! 😡";
+            }
+            
+            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize + 5) + "px";
+        }
+    </script>
+</body>
+</html>
